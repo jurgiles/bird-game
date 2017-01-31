@@ -94,7 +94,7 @@
             android:id="@+id/red_value_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="000"
+            android:text="1"
             android:textSize="24sp"
             android:layout_margin="5sp"
             android:layout_gravity="center"
@@ -103,9 +103,19 @@
 
         <SeekBar
             android:id="@+id/red_control"
+            android:progress="1"
             android:layout_gravity="center"
-            android:layout_width="match_parent"
+            android:layout_width="250sp"
             android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/reset_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4sp"
+            android:text="Reset"
+            />
+
     </LinearLayout>
 
 

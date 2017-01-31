@@ -8,6 +8,8 @@ import android.hardware.SensorManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -30,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
-        gyroSensor = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
+        gyroSensor = sensorManager.getDefaultSensor(Sensor.TYPE_GAME_ROTATION_VECTOR);
 
         xView = (TextView) this.findViewById(R.id.x);
         yView = (TextView) this.findViewById(R.id.y);
@@ -58,9 +60,17 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             }
         });
 
+        Button resetButton = (Button) this.findViewById(R.id.reset_button);
+        resetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                duckView.setX(300f);
+                duckView.setY(300f);
+            }
+        });
 
-        duckView.setX(300);
-        duckView.setY(400);
+        duckView.setX(300f);
+        duckView.setY(300f);
     }
 
     @Override
@@ -72,13 +82,17 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        int[] pos = new int[2];
+        int multiplier = redSeekView.getProgress() * 10;
 
-        duckView.getLocationOnScreen(pos);
-        float newXPos = pos[0] + (.5f * (event.values[0] + Float.valueOf(redSeekLabelView.getText().toString())));
+        float[] oldPos = new float[]{duckView.getX(), duckView.getY()};
+
+        float newXPos = duckView.getX() + (event.values[0] * multiplier);
         duckView.setX(newXPos);
 
-        Log.i("position", String.format("old x: %d, new x: %f", pos[0], newXPos));
+        float newYPos = duckView.getY() + (-1 * event.values[1] * multiplier);
+        duckView.setY(newYPos);
+
+//        Log.i("position", String.format("x[old: %f, new: %f, rot: %f] y[old: %f, new: %f, rot: %f] mult: %d", oldPos[0], newXPos, event.values[0], oldPos[1], newYPos, event.values[1], multiplier));
 
         xView.setText(String.format("%-8.6f", event.values[0]));
         yView.setText(String.format("%-8.6f", event.values[1]));
