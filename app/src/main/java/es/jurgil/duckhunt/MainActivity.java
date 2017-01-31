@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
-        gyroSensor = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE_UNCALIBRATED);
+        gyroSensor = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
 
         xView = (TextView) this.findViewById(R.id.x);
         yView = (TextView) this.findViewById(R.id.y);
@@ -46,9 +46,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        xView.setText("" + event.values[0]);
-        yView.setText("" + event.values[1]);
-        zView.setText("" + event.values[2]);
+        xView.setText(String.format("%-8.6f", event.values[0]));
+        yView.setText(String.format("%-8.6f", event.values[1]));
+        zView.setText(String.format("%-8.6f", event.values[2]));
     }
 
     @Override
