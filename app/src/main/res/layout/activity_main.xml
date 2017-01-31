@@ -4,7 +4,6 @@
     android:id="@+id/activity_main"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:gravity="center"
     tools:context="es.jurgil.duckhunt.MainActivity">
 
     <LinearLayout
@@ -15,6 +14,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+
             <TextView
                 android:id="@+id/label_x"
                 android:layout_width="wrap_content"
@@ -22,6 +22,7 @@
                 android:labelFor="@+id/x"
                 android:text="X:"
                 android:textSize="30sp" />
+
             <TextView
                 android:id="@+id/x"
                 android:layout_width="180sp"
@@ -42,6 +43,7 @@
                 android:layout_height="wrap_content"
                 android:text="Y:"
                 android:textSize="30sp" />
+
             <TextView
                 android:id="@+id/y"
                 android:layout_width="180sp"
@@ -55,12 +57,14 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+
             <TextView
                 android:id="@+id/label_z"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Z:"
                 android:textSize="30sp" />
+
             <TextView
                 android:id="@+id/z"
                 android:layout_width="180sp"
@@ -71,5 +75,38 @@
                 android:textSize="30sp" />
         </LinearLayout>
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/duck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="x"
+        android:textColor="@android:color/holo_red_light"
+        android:textSize="50sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:id="@+id/red_value_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="000"
+            android:textSize="24sp"
+            android:layout_margin="5sp"
+            android:layout_gravity="center"
+            android:width="50sp"
+            />
+
+        <SeekBar
+            android:id="@+id/red_control"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
 
 </RelativeLayout>
