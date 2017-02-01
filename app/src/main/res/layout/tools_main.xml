@@ -1,113 +1,15 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     tools:context="es.jurgil.duckhunt.MainActivity">
 
-    <LinearLayout
+    <Button
+        android:id="@+id/reset_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_margin="4sp"
+        android:text="Reset" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/label_x"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:labelFor="@+id/x"
-                android:text="X:"
-                android:textSize="30sp" />
-
-            <TextView
-                android:id="@+id/x"
-                android:layout_width="180sp"
-                android:layout_height="wrap_content"
-                android:gravity="end"
-                android:padding="10sp"
-                android:text="-0.000000"
-                android:textSize="30sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/label_y"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Y:"
-                android:textSize="30sp" />
-
-            <TextView
-                android:id="@+id/y"
-                android:layout_width="180sp"
-                android:layout_height="wrap_content"
-                android:gravity="end"
-                android:padding="10sp"
-                android:text="-0.000000"
-                android:textSize="30sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/label_z"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Z:"
-                android:textSize="30sp" />
-
-            <TextView
-                android:id="@+id/z"
-                android:layout_width="180sp"
-                android:layout_height="wrap_content"
-                android:gravity="end"
-                android:padding="10sp"
-                android:text="-0.000000"
-                android:textSize="30sp" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_alignParentBottom="true">
-
-        <TextView
-            android:id="@+id/red_value_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1"
-            android:textSize="24sp"
-            android:layout_margin="5sp"
-            android:layout_gravity="center"
-            android:width="50sp"
-            />
-
-        <SeekBar
-            android:id="@+id/red_control"
-            android:progress="1"
-            android:layout_gravity="center"
-            android:layout_width="250sp"
-            android:layout_height="wrap_content" />
-
-        <Button
-            android:id="@+id/reset_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="4sp"
-            android:text="Reset"
-            />
-
-    </LinearLayout>
-
-
-</RelativeLayout>
+</LinearLayout>

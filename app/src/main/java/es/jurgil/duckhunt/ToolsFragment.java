@@ -11,7 +11,7 @@ import android.widget.Button;
 
 public class ToolsFragment extends Fragment {
 
-    private ToolsInterface callback;
+    private ToolsInterface toolsCallBack;
 
     @Nullable
     @Override
@@ -22,7 +22,7 @@ public class ToolsFragment extends Fragment {
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                callback.reset();
+                toolsCallBack.reset();
             }
         });
 
@@ -37,7 +37,7 @@ public class ToolsFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        callback = (ToolsInterface) context;
+        toolsCallBack = (ToolsInterface) context;
     }
 
     public interface ToolsInterface {
