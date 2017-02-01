@@ -75,21 +75,8 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
                 x = x + (-1 * event.values[0] * multiplier);
                 y = y + (event.values[1] * multiplier);
 
-                if(x > 1){
-                    x = 1;
-                }
-
-                if(x < -1) {
-                    x = -1;
-                }
-
-                if(y > 1){
-                    y = 1;
-                }
-
-                if(y < -1){
-                    y = -1;
-                }
+                x = Math.max(-1, Math.min(1, x));
+                y = Math.max(-1, Math.min(1, y));
 
 //                Log.i("position", String.format("x[old: %f, new: %f, rot: %f] y[old: %f, new: %f, rot: %f] mult: %f", oldPos[0], x, event.values[0], oldPos[1], y, event.values[1], multiplier));
             }
