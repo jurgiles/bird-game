@@ -8,8 +8,17 @@ import android.view.ViewGroup;
 
 
 public class GLFragment extends Fragment {
+
+    private MyGLSurfaceView myGLSurfaceView;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return new MyGLSurfaceView(this.getActivity());
+        myGLSurfaceView = new MyGLSurfaceView(this.getActivity());
+
+        return myGLSurfaceView;
+    }
+
+    public void reset() {
+        myGLSurfaceView.reset();
     }
 }

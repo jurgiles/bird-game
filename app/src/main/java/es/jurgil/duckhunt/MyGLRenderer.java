@@ -107,4 +107,9 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
         return shader;
     }
+
+    public void reset() {
+        x = 0;
+        y = 0;
+    }
 }
