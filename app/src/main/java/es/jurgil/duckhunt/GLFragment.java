@@ -25,6 +25,10 @@ public class GLFragment extends Fragment {
         renderer.reset();
     }
 
+    public void setMultiplier(float multiplier) {
+        renderer.setMuliplier(multiplier);
+    }
+
     public interface IFpsViewer {
         void setFps(float fps);
     }

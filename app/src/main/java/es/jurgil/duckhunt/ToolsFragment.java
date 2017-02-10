@@ -1,6 +1,5 @@
 package es.jurgil.duckhunt;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
@@ -9,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 public class ToolsFragment extends Fragment {
@@ -26,6 +26,22 @@ public class ToolsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 toolsCallBack.reset();
+            }
+        });
+
+        SeekBar seekBar = (SeekBar) layout.findViewById(R.id.seek_bar);
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                toolsCallBack.setMultiplier(progress / 100f);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
 
@@ -57,5 +73,6 @@ public class ToolsFragment extends Fragment {
 
     public interface ToolsInterface {
         void reset();
+        void setMultiplier(float multiplier);
     }
 }

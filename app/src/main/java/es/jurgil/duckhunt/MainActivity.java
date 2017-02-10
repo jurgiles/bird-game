@@ -18,6 +18,12 @@ public class MainActivity extends AppCompatActivity implements ToolsFragment.Too
     }
 
     @Override
+    public void setMultiplier(float multiplier) {
+        GLFragment glFragment = (GLFragment) getFragmentManager().findFragmentById(R.id.gl_fragment);
+        glFragment.setMultiplier(multiplier);
+    }
+
+    @Override
     public void setFps(float fps) {
         ToolsFragment toolsFragment = (ToolsFragment) getFragmentManager().findFragmentById(R.id.tools_fragment);
 

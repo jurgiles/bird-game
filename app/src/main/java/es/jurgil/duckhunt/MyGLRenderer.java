@@ -32,6 +32,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     private Sensor gyroSensor;
     private final SensorManager sensorManager;
     private final GLFragment.IFpsViewer fpsViewer;
+    private float multiplier;
 
     public MyGLRenderer(Context context, GLFragment.IFpsViewer fpsViewer) {
         this.fpsViewer = fpsViewer;
@@ -54,10 +55,6 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         // Calculate the projection and view transformation
         Matrix.multiplyMM(mMVPMatrix, 0, mProjectionMatrix, 0, mViewMatrix, 0);
 
-//        long time = SystemClock.uptimeMillis() % 4000L;
-//        float angle = 0.090f * ((int) time);
-//        Matrix.setRotateM(rotationMatrix, 0, angle, 0, 0, -1.0f);
-
         // Combine the rotation matrix with the projection and camera view
         // Note that the mMVPMatrix factor *must be first* in order
         // for the matrix multiplication product to be correct.
@@ -70,7 +67,6 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         y = Math.max(-1, Math.min(1, y));
 
         Matrix.translateM(scratch, 0, mMVPMatrix, 0, x, y, 0);
-//        Matrix.translateM(scratch, 0, scratch, 0, x, y, 0); // turn off rotation
 
         // Draw shape
         triangle.draw(scratch);
@@ -84,7 +80,6 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         sensorManager.registerListener(new SensorEventListener() {
             @Override
             public void onSensorChanged(SensorEvent event) {
-                float multiplier = .5f;
                 float[] oldPos = {x, y};
 
                 deltaX = (-1 * event.values[0] * multiplier);
@@ -127,6 +122,10 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     public void reset() {
         x = 0;
         y = 0;
+    }
+
+    public void setMuliplier(float multiplier) {
+        this.multiplier = multiplier;
     }
 
     private void updateFps() {
