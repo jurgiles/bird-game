@@ -3,7 +3,7 @@ package es.jurgil.duckhunt;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity implements ToolsFragment.ToolsInterface {
+public class MainActivity extends AppCompatActivity implements ToolsFragment.ToolsInterface, GLFragment.IFpsViewer {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -15,6 +15,15 @@ public class MainActivity extends AppCompatActivity implements ToolsFragment.Too
     public void reset() {
         GLFragment glFragment = (GLFragment) getFragmentManager().findFragmentById(R.id.gl_fragment);
         glFragment.reset();
+    }
 
+    @Override
+    public void setFps(float fps) {
+        ToolsFragment toolsFragment = (ToolsFragment) getFragmentManager().findFragmentById(R.id.tools_fragment);
+
+        // Happens when gl app is shutting down
+        if (toolsFragment != null) {
+            toolsFragment.setFps(fps);
+        }
     }
 }

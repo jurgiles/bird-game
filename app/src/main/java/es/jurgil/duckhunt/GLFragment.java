@@ -10,15 +10,22 @@ import android.view.ViewGroup;
 public class GLFragment extends Fragment {
 
     private MyGLSurfaceView myGLSurfaceView;
+    private MyGLRenderer renderer;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        myGLSurfaceView = new MyGLSurfaceView(this.getActivity());
+        renderer = new MyGLRenderer(this.getActivity(), (IFpsViewer) this.getActivity());
+
+        myGLSurfaceView = new MyGLSurfaceView(this.getActivity(), renderer);
 
         return myGLSurfaceView;
     }
 
     public void reset() {
-        myGLSurfaceView.reset();
+        renderer.reset();
+    }
+
+    public interface IFpsViewer {
+        void setFps(float fps);
     }
 }
