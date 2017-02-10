@@ -45,6 +45,8 @@ public class ToolsFragment extends Fragment {
             }
         });
 
+        seekBar.setProgress(40);
+
         return layout;
     }
 
