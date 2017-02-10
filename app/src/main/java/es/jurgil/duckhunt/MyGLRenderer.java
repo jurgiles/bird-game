@@ -24,6 +24,9 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     private float x = 0;
     private float y = 0;
 
+    private float deltaX = 0;
+    private float deltaY = 0;
+
     private long lastDrawNanoTime = 0;
 
     private Sensor gyroSensor;
@@ -60,6 +63,12 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         // for the matrix multiplication product to be correct.
         Matrix.multiplyMM(scratch, 0, mMVPMatrix, 0, rotationMatrix, 0);
 
+        x += deltaX;
+        y += deltaY;
+
+        x = Math.max(-1, Math.min(1, x));
+        y = Math.max(-1, Math.min(1, y));
+
         Matrix.translateM(scratch, 0, mMVPMatrix, 0, x, y, 0);
 //        Matrix.translateM(scratch, 0, scratch, 0, x, y, 0); // turn off rotation
 
@@ -78,11 +87,8 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
                 float multiplier = .5f;
                 float[] oldPos = {x, y};
 
-                x = x + (-1 * event.values[0] * multiplier);
-                y = y + (event.values[1] * multiplier);
-
-                x = Math.max(-1, Math.min(1, x));
-                y = Math.max(-1, Math.min(1, y));
+                deltaX = (-1 * event.values[0] * multiplier);
+                deltaY = (event.values[1] * multiplier);
 
 //                Log.i("position", String.format("x[old: %f, new: %f, rot: %f] y[old: %f, new: %f, rot: %f] mult: %f", oldPos[0], x, event.values[0], oldPos[1], y, event.values[1], multiplier));
             }
