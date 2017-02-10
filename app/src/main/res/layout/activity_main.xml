@@ -16,6 +16,6 @@
         android:name="es.jurgil.duckhunt.ToolsFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_heightPercent="20%"
+        app:layout_heightPercent="50%"
         tools:layout="@layout/tools_main" />
 </android.support.percent.PercentRelativeLayout>

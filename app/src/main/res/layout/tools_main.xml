@@ -27,8 +27,15 @@
         android:layout_margin="4sp"
         android:text="fps " />
 
+    <com.jjoe64.graphview.GraphView
+        android:id="@+id/graph_x"
+        android:layout_width="300sp"
+        android:layout_height="200dip" />
+
     <SeekBar
         android:id="@+id/seek_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+
 </LinearLayout>

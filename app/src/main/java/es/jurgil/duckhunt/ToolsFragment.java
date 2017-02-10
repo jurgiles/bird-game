@@ -11,10 +11,18 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.LabelFormatter;
+import com.jjoe64.graphview.Viewport;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
+
 public class ToolsFragment extends Fragment {
 
     private ToolsInterface toolsCallBack;
     private View layout;
+    private GraphView graphX;
+    private LineGraphSeries<DataPoint> series;
 
     @Nullable
     @Override
@@ -28,6 +36,29 @@ public class ToolsFragment extends Fragment {
                 toolsCallBack.reset();
             }
         });
+
+        graphX = (GraphView) layout.findViewById(R.id.graph_x);
+
+        series = new LineGraphSeries<>();
+
+        graphX.addSeries(series);
+        graphX.getViewport().setXAxisBoundsManual(true);
+        graphX.getViewport().setMaxX(2000);
+        graphX.getViewport().setMinX(0);
+        graphX.getGridLabelRenderer().setLabelFormatter(new LabelFormatter() {
+            @Override
+            public String formatLabel(double value, boolean isValueX) {
+                return isValueX ? "" : String.valueOf(value);
+            }
+
+            @Override
+            public void setViewport(Viewport viewport) {
+            }
+        });
+
+        graphX.getViewport().setYAxisBoundsManual(true);
+        graphX.getViewport().setMinY(0);
+        graphX.getViewport().setMaxY(100);
 
         SeekBar seekBar = (SeekBar) layout.findViewById(R.id.seek_bar);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -69,12 +100,14 @@ public class ToolsFragment extends Fragment {
             @Override
             public void run() {
                 fpsView.setText(format);
+                series.appendData(new DataPoint(System.currentTimeMillis(), fps), true, 10000, false);
             }
         });
     }
 
     public interface ToolsInterface {
         void reset();
+
         void setMultiplier(float multiplier);
     }
 }

@@ -92,7 +92,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
             public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
             }
-        }, gyroSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        }, gyroSensor, SensorManager.SENSOR_DELAY_GAME);
 
 
     }
