@@ -14,6 +14,7 @@ import javax.microedition.khronos.opengles.GL10;
 public class MyGLRenderer implements GLSurfaceView.Renderer {
 
     private Triangle triangle;
+    private Crosshair crosshair;
 
     private final float[] mMVPMatrix = new float[16];
     private final float[] mProjectionMatrix = new float[16];
@@ -34,6 +35,8 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     private final GLFragment.IFpsViewer fpsViewer;
     private float multiplier;
 
+    private boolean flashing = false;
+
     public MyGLRenderer(Context context, GLFragment.IFpsViewer fpsViewer) {
         this.fpsViewer = fpsViewer;
 
@@ -43,6 +46,13 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
     public void onDrawFrame(GL10 unused) {
         updateFps();
+
+        if(flashing){
+            GLES20.glClearColor(1.0f, 1.0f, 1.0f, 5.0f);
+            flashing = false;
+        } else {
+            GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        }
 
         float[] scratch = new float[16];
 
@@ -70,12 +80,14 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
         // Draw shape
         triangle.draw(scratch);
+        crosshair.draw(scratch);
     }
 
     public void onSurfaceCreated(GL10 gl, javax.microedition.khronos.egl.EGLConfig config) {
         GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
         triangle = new Triangle();
+        crosshair = new Crosshair();
 
         sensorManager.registerListener(new SensorEventListener() {
             @Override
@@ -133,5 +145,9 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         float fps = 1000000000f / (nanoTime - lastDrawNanoTime);
         lastDrawNanoTime = nanoTime;
         fpsViewer.setFps(fps);
+    }
+
+    public void flashScreen() {
+        flashing = true;
     }
 }
