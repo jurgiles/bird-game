@@ -96,13 +96,16 @@ public class ToolsFragment extends Fragment {
         final String format = String.format("%.2f", fps);
         final TextView fpsView = (TextView) layout.findViewById(R.id.fps_text);
 
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                fpsView.setText(format);
-                series.appendData(new DataPoint(System.currentTimeMillis(), fps), true, 10000, false);
-            }
-        });
+        //can be avoided if fragment is paused when activity is paused.
+        if(getActivity() != null) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    fpsView.setText(format);
+                    series.appendData(new DataPoint(System.currentTimeMillis(), fps), true, 10000, false);
+                }
+            });
+        }
     }
 
     public interface ToolsInterface {

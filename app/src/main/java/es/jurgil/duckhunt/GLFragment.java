@@ -32,4 +32,16 @@ public class GLFragment extends Fragment {
     public interface IFpsViewer {
         void setFps(float fps);
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        myGLSurfaceView.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        myGLSurfaceView.onResume();
+    }
 }

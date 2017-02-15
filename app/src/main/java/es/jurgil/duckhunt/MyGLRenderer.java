@@ -36,6 +36,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     private float multiplier;
 
     private boolean flashing = false;
+    private float screenRatio;
 
     public MyGLRenderer(Context context, GLFragment.IFpsViewer fpsViewer) {
         this.fpsViewer = fpsViewer;
@@ -48,7 +49,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         updateFps();
 
         if(flashing){
-            GLES20.glClearColor(1.0f, 1.0f, 1.0f, 5.0f);
+            GLES20.glClearColor(1.0f, 1.0f, 1.0f, .1f);
             flashing = false;
         } else {
             GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -73,7 +74,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         x += deltaX;
         y += deltaY;
 
-        x = Math.max(-1, Math.min(1, x));
+        x = Math.max(-screenRatio, Math.min(screenRatio, x));
         y = Math.max(-1, Math.min(1, y));
 
         Matrix.translateM(scratch, 0, mMVPMatrix, 0, x, y, 0);
@@ -112,11 +113,11 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     public void onSurfaceChanged(GL10 unused, int width, int height) {
         GLES20.glViewport(0, 0, width, height);
 
-        float ratio = (float) width / height;
+        screenRatio = (float) width / height;
 
         // this projection matrix is applied to object coordinates
         // in the onDrawFrame() method
-        Matrix.frustumM(mProjectionMatrix, 0, -ratio, ratio, -1, 1, 3, 7);
+        Matrix.frustumM(mProjectionMatrix, 0, -screenRatio, screenRatio, -1, 1, 3, 7);
     }
 
     public static int loadShader(int type, String shaderCode) {
