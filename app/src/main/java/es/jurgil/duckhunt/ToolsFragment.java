@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,7 +65,11 @@ public class ToolsFragment extends Fragment {
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                toolsCallBack.setMultiplier(progress / 100f);
+                if(toolsCallBack != null) {
+                    toolsCallBack.setMultiplier(progress / 100f);
+                } else {
+                    Log.w("unexpected", "toolsCallBack is null");
+                }
             }
 
             @Override

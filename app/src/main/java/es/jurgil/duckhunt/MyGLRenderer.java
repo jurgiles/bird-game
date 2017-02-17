@@ -13,6 +13,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 public class MyGLRenderer implements GLSurfaceView.Renderer {
 
+    private final Context context;
     private Triangle triangle;
     private Crosshair crosshair;
 
@@ -40,6 +41,8 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
     public MyGLRenderer(Context context, GLFragment.IFpsViewer fpsViewer) {
         this.fpsViewer = fpsViewer;
+
+        this.context = context;
 
         sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         gyroSensor = sensorManager.getDefaultSensor(Sensor.TYPE_GAME_ROTATION_VECTOR);
@@ -87,7 +90,14 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     public void onSurfaceCreated(GL10 gl, javax.microedition.khronos.egl.EGLConfig config) {
         GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
-        triangle = new Triangle();
+        int fragmentShader = loadShader(GLES20.GL_FRAGMENT_SHADER,
+                ShaderTools.loadShaderResourceToString(context, R.raw.simple_fragment_shader));
+
+        int vertexShader = loadShader(GLES20.GL_VERTEX_SHADER,
+                ShaderTools.loadShaderResourceToString(context, R.raw.simple_vertex_shader));
+
+        triangle = new Triangle(fragmentShader, vertexShader);
+
         crosshair = new Crosshair();
 
         sensorManager.registerListener(new SensorEventListener() {
