@@ -11,6 +11,9 @@ import android.opengl.Matrix;
 
 import javax.microedition.khronos.opengles.GL10;
 
+import static es.jurgil.duckhunt.ShaderTools.*;
+import static es.jurgil.duckhunt.ShaderTools.loadShaderResourceToString;
+
 public class MyGLRenderer implements GLSurfaceView.Renderer {
 
     private final Context context;
@@ -90,15 +93,12 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     public void onSurfaceCreated(GL10 gl, javax.microedition.khronos.egl.EGLConfig config) {
         GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
-        int fragmentShader = loadShader(GLES20.GL_FRAGMENT_SHADER,
-                ShaderTools.loadShaderResourceToString(context, R.raw.simple_fragment_shader));
+        int fragmentShader = loadFragmentShader(loadShaderResourceToString(context, R.raw.simple_fragment_shader));
 
-        int vertexShader = loadShader(GLES20.GL_VERTEX_SHADER,
-                ShaderTools.loadShaderResourceToString(context, R.raw.simple_vertex_shader));
+        int vertexShader = loadVertexShader(loadShaderResourceToString(context, R.raw.simple_vertex_shader));
 
         triangle = new Triangle(fragmentShader, vertexShader);
-
-        crosshair = new Crosshair();
+        crosshair = new Crosshair(fragmentShader, vertexShader);
 
         sensorManager.registerListener(new SensorEventListener() {
             @Override
@@ -128,18 +128,6 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         // this projection matrix is applied to object coordinates
         // in the onDrawFrame() method
         Matrix.frustumM(mProjectionMatrix, 0, -screenRatio, screenRatio, -1, 1, 3, 7);
-    }
-
-    public static int loadShader(int type, String shaderCode) {
-        // create a vertex shader type (GLES20.GL_VERTEX_SHADER)
-        // or a fragment shader type (GLES20.GL_FRAGMENT_SHADER)
-        int shader = GLES20.glCreateShader(type);
-
-        // add the source code to the shader and compile it
-        GLES20.glShaderSource(shader, shaderCode);
-        GLES20.glCompileShader(shader);
-
-        return shader;
     }
 
     public void reset() {
