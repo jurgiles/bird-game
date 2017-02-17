@@ -10,7 +10,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class ShaderTools {
-    public static String loadShaderResourceToString(Context context, int resourceId){
+    public static String loadShaderResourceToString(Context context, int resourceId) {
 
         InputStream inputStream = context.getResources().openRawResource(resourceId);
 
@@ -19,7 +19,7 @@ public class ShaderTools {
         StringBuilder fileContents = new StringBuilder();
         try {
             String s;
-            while((s = bufferedReader.readLine()) != null){
+            while ((s = bufferedReader.readLine()) != null) {
                 fileContents.append(s);
                 fileContents.append('\n');
             }
@@ -45,7 +45,7 @@ public class ShaderTools {
         // or a fragment shader type (GLES20.GL_FRAGMENT_SHADER)
         int shader = GLES20.glCreateShader(type);
 
-        if(shader == 0){
+        if (shader == 0) {
             Log.e("unexpected", "failed to create shader");
         }
 
@@ -56,7 +56,12 @@ public class ShaderTools {
         final int[] compileStatus = new int[1];
         GLES20.glGetShaderiv(shader, GLES20.GL_COMPILE_STATUS, compileStatus, 0);
 
-        Log.i("shadercompile", GLES20.glGetShaderInfoLog(shader));
+        if(compileStatus[0] == 0){
+            GLES20.glDeleteShader(shader);
+        }
+
+        String compileMessage = GLES20.glGetShaderInfoLog(shader);
+        Log.i(type == GLES20.GL_VERTEX_SHADER ? "GL_VERTEX_SHADER" : "GL_FRAGMENT_SHADER", compileMessage.isEmpty() ? "compiled successfully" : compileMessage);
 
         return shader;
     }
