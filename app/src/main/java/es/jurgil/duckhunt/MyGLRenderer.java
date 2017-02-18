@@ -130,7 +130,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
             }
         }, gyroSensor, SensorManager.SENSOR_DELAY_GAME);
 
-
+        GLES20.glUseProgram(programId);
     }
 
     public void onSurfaceChanged(GL10 unused, int width, int height) {

@@ -48,9 +48,6 @@ public class Triangle {
     }
 
     public void draw(float[] mvpMatrix, int program, int mPositionHandle, int mColorHandle) {
-        // Add program to OpenGL ES environment
-        GLES20.glUseProgram(program);
-
         // Enable a handle to the triangle vertices
         GLES20.glEnableVertexAttribArray(mPositionHandle);
 
