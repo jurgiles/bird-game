@@ -12,8 +12,6 @@ public class Crosshair {
     private final ShortBuffer drawListBuffer;
     private FloatBuffer vertexBuffer;
 
-    private int mPositionHandle;
-    private int mColorHandle;
     private int mMVPMatrixHandle;
 
     private final int vertexStride = COORDS_PER_VERTEX * 4; // 4 bytes per vertex
@@ -61,12 +59,9 @@ public class Crosshair {
         ShaderTools.setupGLProgram(fragmentShader, vertexShader);
     }
 
-    public void draw(float[] mvpMatrix, int program) {
+    public void draw(float[] mvpMatrix, int program, int mPositionHandle, int mColorHandle) {
         // Add program to OpenGL ES environment
         GLES20.glUseProgram(program);
-
-        // get handle to vertex shader's vPosition member
-        mPositionHandle = GLES20.glGetAttribLocation(program, "vPosition");
 
         // Enable a handle to the triangle vertices
         GLES20.glEnableVertexAttribArray(mPositionHandle);
@@ -75,9 +70,6 @@ public class Crosshair {
         GLES20.glVertexAttribPointer(mPositionHandle, COORDS_PER_VERTEX,
                 GLES20.GL_FLOAT, false,
                 vertexStride, vertexBuffer);
-
-        // get handle to fragment shader's vColor member
-        mColorHandle = GLES20.glGetUniformLocation(program, "vColor");
 
         // Set color for drawing the triangle
         GLES20.glUniform4fv(mColorHandle, 1, color, 0);

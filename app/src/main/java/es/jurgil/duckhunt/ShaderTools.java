@@ -87,7 +87,8 @@ public class ShaderTools {
             Log.e("unexpected", "Failed to link application");
         }
 
-        Log.i("gllinking", "details" + GLES20.glGetProgramInfoLog(programId));
+        String linkingMessage = GLES20.glGetProgramInfoLog(programId);
+        Log.i("gllinking", linkingMessage.isEmpty() ? "linking successful" : linkingMessage);
 
         return programId;
     }
