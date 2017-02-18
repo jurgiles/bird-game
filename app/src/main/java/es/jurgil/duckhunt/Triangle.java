@@ -9,7 +9,7 @@ import java.nio.FloatBuffer;
 
 public class Triangle {
 
-    private final int program;
+    private int program;
     private FloatBuffer vertexBuffer;
 
     private int mPositionHandle;
@@ -47,17 +47,8 @@ public class Triangle {
         // set the buffer to read the first coordinate
         vertexBuffer.position(0);
 
-        // create empty OpenGL ES Program
-        program = GLES20.glCreateProgram();
+        program = ShaderTools.setupGLProgram(fragmentShader, vertexShader);
 
-        // add the vertex shader to program
-        GLES20.glAttachShader(program, vertexShader);
-
-        // add the fragment shader to program
-        GLES20.glAttachShader(program, fragmentShader);
-
-        // creates OpenGL ES program executables
-        GLES20.glLinkProgram(program);
     }
 
     public void draw(float[] mvpMatrix) {

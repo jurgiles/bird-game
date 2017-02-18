@@ -65,4 +65,30 @@ public class ShaderTools {
 
         return shader;
     }
+
+    static int setupGLProgram(int fragmentShader, int vertexShader) {
+        // create empty OpenGL ES Program
+        int programId = GLES20.glCreateProgram();
+
+        // add the vertex shader to programId
+        GLES20.glAttachShader(programId, vertexShader);
+
+        // add the fragment shader to programId
+        GLES20.glAttachShader(programId, fragmentShader);
+
+        // creates OpenGL ES programId executables
+        GLES20.glLinkProgram(programId);
+
+        final int[] linkStatus = new int[1];
+        GLES20.glGetProgramiv(programId, GLES20.GL_LINK_STATUS, linkStatus, 0);
+
+        if(linkStatus[0] == 0){
+            GLES20.glDeleteProgram(programId);
+            Log.e("unexpected", "Failed to link application");
+        }
+
+        Log.i("gllinking", "details" + GLES20.glGetProgramInfoLog(programId));
+
+        return programId;
+    }
 }

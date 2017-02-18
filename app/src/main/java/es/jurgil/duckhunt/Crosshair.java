@@ -59,18 +59,8 @@ public class Crosshair {
         drawListBuffer = dlb.asShortBuffer();
         drawListBuffer.put(drawOrder);
         drawListBuffer.position(0);
-
-        // create empty OpenGL ES Program
-        program = GLES20.glCreateProgram();
-
-        // add the vertex shader to program
-        GLES20.glAttachShader(program, vertexShader);
-
-        // add the fragment shader to program
-        GLES20.glAttachShader(program, fragmentShader);
-
-        // creates OpenGL ES program executables
-        GLES20.glLinkProgram(program);
+        
+        program = ShaderTools.setupGLProgram(fragmentShader, vertexShader);
     }
 
     public void draw(float[] mvpMatrix) {
