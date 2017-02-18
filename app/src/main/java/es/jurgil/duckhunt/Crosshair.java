@@ -14,9 +14,6 @@ public class Crosshair {
 
     private int mMVPMatrixHandle;
 
-    private final int vertexStride = COORDS_PER_VERTEX * 4; // 4 bytes per vertex
-
-
     // number of coordinates per vertex in this array
     static final int COORDS_PER_VERTEX = 3;
 
@@ -55,8 +52,6 @@ public class Crosshair {
         drawListBuffer = dlb.asShortBuffer();
         drawListBuffer.put(drawOrder);
         drawListBuffer.position(0);
-        
-        ShaderTools.setupGLProgram(fragmentShader, vertexShader);
     }
 
     public void draw(float[] mvpMatrix, int program, int mPositionHandle, int mColorHandle) {
@@ -65,8 +60,7 @@ public class Crosshair {
 
         // Prepare the triangle coordinate data
         GLES20.glVertexAttribPointer(mPositionHandle, COORDS_PER_VERTEX,
-                GLES20.GL_FLOAT, false,
-                vertexStride, vertexBuffer);
+                GLES20.GL_FLOAT, false, 0, vertexBuffer);
 
         // Set color for drawing the triangle
         GLES20.glUniform4fv(mColorHandle, 1, color, 0);
