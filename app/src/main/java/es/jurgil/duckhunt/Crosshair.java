@@ -29,7 +29,7 @@ public class Crosshair {
     // Set color with red, green, blue and alpha (opacity) values
     float color[] = {1f, 0f, 0f, 5.0f};
 
-    public Crosshair(int fragmentShader, int vertexShader) {
+    public Crosshair() {
         // initialize vertex byte buffer for shape coordinates
         ByteBuffer bb = ByteBuffer.allocateDirect(
                 // (number of coordinate values * 4 bytes per float)

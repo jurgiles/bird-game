@@ -102,7 +102,6 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
         int fragmentShader = loadFragmentShader(loadShaderResourceToString(context, R.raw.simple_fragment_shader));
-
         int vertexShader = loadVertexShader(loadShaderResourceToString(context, R.raw.simple_vertex_shader));
 
         programId = ShaderTools.setupGLProgram(fragmentShader, vertexShader);
@@ -110,8 +109,8 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         uColorLocation = GLES20.glGetUniformLocation(programId, U_COLOR);
         aPositionLocation = GLES20.glGetAttribLocation(programId, A_POSITION);
 
-        triangle = new Triangle(fragmentShader, vertexShader);
-        crosshair = new Crosshair(fragmentShader, vertexShader);
+        triangle = new Triangle();
+        crosshair = new Crosshair();
 
         sensorManager.registerListener(new SensorEventListener() {
             @Override
