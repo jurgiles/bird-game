@@ -15,13 +15,17 @@ public class Crosshair {
     private int mMVPMatrixHandle;
 
     // number of coordinates per vertex in this array
-    static final int COORDS_PER_VERTEX = 3;
+    static final int COORDS_PER_VERTEX = 2;
 
     static float squareCoords[] = {   // in counterclockwise order:
-            -0.025f,  0.025f, 0.0f, // top left
-            -0.025f, -0.025f, 0.0f, // bottom left
-            0.025f, -0.025f, 0.0f, // bottom right
-            0.025f,  0.025f, 0.0f, // top right
+            0.0f,  0.04f, // top
+            -0.025f, 0f, // bottom left
+            0.025f, 0f, // bottom right
+
+            0.0f,  -0.04f, // top
+            -0.025f, 0f, // bottom left
+            0.025f, 0f, // bottom right
+
     };
 
     private final short drawOrder[] = { 0, 1, 2, 0, 2, 3 };
@@ -72,7 +76,7 @@ public class Crosshair {
         GLES20.glUniformMatrix4fv(mMVPMatrixHandle, 1, false, mvpMatrix, 0);
 
         // Draw the triangle
-        GLES20.glDrawElements(GLES20.GL_TRIANGLES, drawOrder.length, GLES20.GL_UNSIGNED_SHORT, drawListBuffer);
+        GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, drawOrder.length);
 
         // Disable vertex array
         GLES20.glDisableVertexAttribArray(mPositionHandle);
