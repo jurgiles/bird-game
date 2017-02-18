@@ -11,8 +11,9 @@ import android.opengl.Matrix;
 
 import javax.microedition.khronos.opengles.GL10;
 
-import static es.jurgil.duckhunt.ShaderTools.*;
+import static es.jurgil.duckhunt.ShaderTools.loadFragmentShader;
 import static es.jurgil.duckhunt.ShaderTools.loadShaderResourceToString;
+import static es.jurgil.duckhunt.ShaderTools.loadVertexShader;
 
 public class MyGLRenderer implements GLSurfaceView.Renderer {
 
@@ -41,6 +42,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
     private boolean flashing = false;
     private float screenRatio;
+    private int programId;
 
     public MyGLRenderer(Context context, GLFragment.IFpsViewer fpsViewer) {
         this.fpsViewer = fpsViewer;
@@ -85,9 +87,10 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
         Matrix.translateM(scratch, 0, mMVPMatrix, 0, x, y, 0);
 
+
         // Draw shape
-        triangle.draw(scratch);
-        crosshair.draw(scratch);
+        triangle.draw(scratch, programId);
+        crosshair.draw(scratch, programId);
     }
 
     public void onSurfaceCreated(GL10 gl, javax.microedition.khronos.egl.EGLConfig config) {
@@ -96,6 +99,8 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         int fragmentShader = loadFragmentShader(loadShaderResourceToString(context, R.raw.simple_fragment_shader));
 
         int vertexShader = loadVertexShader(loadShaderResourceToString(context, R.raw.simple_vertex_shader));
+
+        programId = ShaderTools.setupGLProgram(fragmentShader, vertexShader);
 
         triangle = new Triangle(fragmentShader, vertexShader);
         crosshair = new Crosshair(fragmentShader, vertexShader);

@@ -9,8 +9,6 @@ import java.nio.FloatBuffer;
 import java.nio.ShortBuffer;
 
 public class Crosshair {
-
-    private final int program;
     private final ShortBuffer drawListBuffer;
     private FloatBuffer vertexBuffer;
 
@@ -60,10 +58,10 @@ public class Crosshair {
         drawListBuffer.put(drawOrder);
         drawListBuffer.position(0);
         
-        program = ShaderTools.setupGLProgram(fragmentShader, vertexShader);
+        ShaderTools.setupGLProgram(fragmentShader, vertexShader);
     }
 
-    public void draw(float[] mvpMatrix) {
+    public void draw(float[] mvpMatrix, int program) {
         // Add program to OpenGL ES environment
         GLES20.glUseProgram(program);
 

@@ -8,8 +8,6 @@ import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
 public class Triangle {
-
-    private int program;
     private FloatBuffer vertexBuffer;
 
     private int mPositionHandle;
@@ -47,11 +45,11 @@ public class Triangle {
         // set the buffer to read the first coordinate
         vertexBuffer.position(0);
 
-        program = ShaderTools.setupGLProgram(fragmentShader, vertexShader);
+        ShaderTools.setupGLProgram(fragmentShader, vertexShader);
 
     }
 
-    public void draw(float[] mvpMatrix) {
+    public void draw(float[] mvpMatrix, int program) {
         // Add program to OpenGL ES environment
         GLES20.glUseProgram(program);
 
