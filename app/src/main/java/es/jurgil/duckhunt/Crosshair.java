@@ -16,15 +16,16 @@ public class Crosshair {
 
     // number of coordinates per vertex in this array
     static final int COORDS_PER_VERTEX = 2;
+    static final int COLORS_PER_VERTEX = 3;
 
     static float squareCoords[] = {   // in counterclockwise order:
-            0.0f,  0.04f, // top
-            -0.025f, 0f, // bottom left
-            0.025f, 0f, // bottom right
+            0.0f,    0.04f,    1f, 0f, 0f, // top
+            -0.025f,    0f,    1f, 0f, 0f, // bottom left
+            0.025f,     0f,    1f, 0f, 0f,// bottom right
 
-            0.0f,  -0.04f, // top
-            -0.025f, 0f, // bottom left
-            0.025f, 0f, // bottom right
+            0.0f,   -0.04f,     0f, 0f, 1f,// top
+            -0.025f,    0f,     0f, 0f, 1f,// bottom left
+            0.025f,     0f,     0f, 0f, 1f,// bottom right
 
     };
 
@@ -63,8 +64,7 @@ public class Crosshair {
         GLES20.glEnableVertexAttribArray(mPositionHandle);
 
         // Prepare the triangle coordinate data
-        GLES20.glVertexAttribPointer(mPositionHandle, COORDS_PER_VERTEX,
-                GLES20.GL_FLOAT, false, 0, vertexBuffer);
+        GLES20.glVertexAttribPointer(mPositionHandle, COORDS_PER_VERTEX, GLES20.GL_FLOAT, false, (COLORS_PER_VERTEX + COORDS_PER_VERTEX) * 4, vertexBuffer);
 
         // Set color for drawing the triangle
         GLES20.glUniform4fv(mColorHandle, 1, color, 0);

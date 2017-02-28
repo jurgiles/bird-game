@@ -15,12 +15,13 @@ public class Triangle {
     private final int vertexCount = triangleCoords.length / COORDS_PER_VERTEX;
 
     // number of coordinates per vertex in this array
-    static final int COORDS_PER_VERTEX = 3;
+    static final int COORDS_PER_VERTEX = 2;
+    static final int COLORS_PER_VERTEX = 3;
 
     static float triangleCoords[] = {   // in counterclockwise order:
-            -0.75f,  0.3f, 0.0f, // top
-            -1f, 0.0f, 0.0f, // bottom left
-            -0.5f, 0.0f, 0.0f  // bottom right
+            -0.75f,  0.3f,    0f, 1f, 0f,// top
+            -1f,     0.0f,    0f, 1f, 0f,// bottom left
+            -0.5f,   0.0f,    0f, 1f, 0f,  // bottom right
     };
 
     // Set color with red, green, blue and alpha (opacity) values
@@ -48,7 +49,7 @@ public class Triangle {
 
         // Prepare the triangle coordinate data
         GLES20.glVertexAttribPointer(mPositionHandle, COORDS_PER_VERTEX,
-                GLES20.GL_FLOAT, false, 0, vertexBuffer);
+                GLES20.GL_FLOAT, false, (COLORS_PER_VERTEX + COORDS_PER_VERTEX) * 4, vertexBuffer);
 
         // Set color for drawing the triangle
         GLES20.glUniform4fv(mColorHandle, 1, color, 0);
