@@ -19,8 +19,8 @@ public class Duck {
     static final int COLORS_PER_VERTEX = 3;
 
     static float coords[] = {   // in counterclockwise order:
-            -0.05f,  0.1f,   1f, 0f, 0f,
-             0.05f,  0.1f,   0f, 1f, 0f,
+            -0.05f,  0.1f,    1f, 0f, 0f,
+             0.05f,  0.1f,    0f, 1f, 0f,
              0.05f,  0.0f,    0f, 0f, 1f,
 
             -0.05f,  0.1f,    1f, 0f, 0f,
@@ -28,12 +28,12 @@ public class Duck {
              0.05f,  0.0f,    1f, 0f, 0f,
 
             -0.15f,  0.0f,    1f, 0f, 0f,
-             0.15f,  0.0f,   1f, 0f, 0f,
-             0.15f, -0.1f,   1f, 0f, 0f,
+             0.15f,  0.0f,    0f, 1f, 0f,
+             0.15f, -0.1f,    0f, 0f, 1f,
 
             -0.15f,   0.0f,   1f, 0f, 0f,
             -0.15f,  -0.1f,   1f, 0f, 0f,
-             0.15f,  -0.1f,    1f, 0f, 0f,
+             0.15f,  -0.1f,   1f, 0f, 0f,
     };
 
     public Duck() {
