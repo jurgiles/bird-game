@@ -95,7 +95,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
         // Draw shape
         duck.draw(scratch, programId, aPositionLocation, aColorLocation);
-        crosshair.draw(scratch, programId, aPositionLocation, aColorLocation);
+//        crosshair.draw(scratch, programId, aPositionLocation, aColorLocation);
     }
 
     public void onSurfaceCreated(GL10 gl, javax.microedition.khronos.egl.EGLConfig config) {

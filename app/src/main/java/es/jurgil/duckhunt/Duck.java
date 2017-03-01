@@ -19,31 +19,21 @@ public class Duck {
     static final int COLORS_PER_VERTEX = 3;
 
     static float coords[] = {   // in counterclockwise order:
-            -0.1f,  -0.05f,   1f, 0f, 0f, // bottom left
-             0.1f,  -0.05f,   0f, 1f, 0f, // bottom right
+            -0.05f,  0.1f,   1f, 0f, 0f,
+             0.05f,  0.1f,   0f, 1f, 0f,
+             0.05f,  0.0f,    0f, 0f, 1f,
 
-             0.1f,  -0.05f,   0f, 0f, 1f, // right bottom
-             0.1f,   0.0f,    1f, 0f, 0f, // right top
+            -0.05f,  0.1f,    1f, 0f, 0f,
+            -0.05f,  0.0f,    1f, 0f, 0f,
+             0.05f,  0.0f,    1f, 0f, 0f,
 
-             0.1f,   0.0f,    1f, 0f, 0f, // right flat outter
-             0.05f,  0.0f,    1f, 0f, 0f, // right flat inner
+            -0.15f,  0.0f,    1f, 0f, 0f,
+             0.15f,  0.0f,   1f, 0f, 0f,
+             0.15f, -0.1f,   1f, 0f, 0f,
 
-             0.05f,  0.0f,    1f, 0f, 0f, // right flat outter
-             0.05f,  0.05f,   1f, 0f, 0f, // right flat inner
-
-             0.05f,  0.05f,   1f, 0f, 0f, // right flat outter
-            -0.05f,  0.05f,   1f, 0f, 0f, // right flat inner
-
-            -0.05f,  0.05f,   1f, 0f, 0f, // right flat inner
-            -0.05f,  0.0f,    1f, 0f, 0f, // right flat outter
-
-            -0.05f,  0.0f,    1f, 0f, 0f, // right flat inner
-            -0.1f,   0.0f,    1f, 0f, 0f, // right flat outte
-
-            -0.1f,   0.0f,    1f, 0f, 0f, // right flat outte
-            -0.1f,  -0.05f,   1f, 0f, 0f, // right flat inner
-
-
+            -0.15f,   0.0f,   1f, 0f, 0f,
+            -0.15f,  -0.1f,   1f, 0f, 0f,
+             0.15f,  -0.1f,    1f, 0f, 0f,
     };
 
     public Duck() {
@@ -78,7 +68,7 @@ public class Duck {
         GLES20.glUniformMatrix4fv(mMVPMatrixHandle, 1, false, mvpMatrix, 0);
 
         // Draw the triangle
-        GLES20.glDrawArrays(GLES20.GL_LINES, 0, VERTEX_COUNT);
+        GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, VERTEX_COUNT);
 
         // Disable vertex array
         GLES20.glDisableVertexAttribArray(mPositionHandle);
