@@ -23,7 +23,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     private int aPositionLocation;
 
     private final Context context;
-    private Triangle triangle;
+    private Duck duck;
     private Crosshair crosshair;
 
     private final float[] mMVPMatrix = new float[16];
@@ -74,7 +74,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
 
         // Set the camera position (View matrix)
-        Matrix.setLookAtM(mViewMatrix, 0, 0, 0, -3, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
+        Matrix.setLookAtM(mViewMatrix, 0, 0, 0, 3, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
 
         // Calculate the projection and view transformation
         Matrix.multiplyMM(mMVPMatrix, 0, mProjectionMatrix, 0, mViewMatrix, 0);
@@ -94,7 +94,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
 
         // Draw shape
-        triangle.draw(scratch, programId, aPositionLocation, aColorLocation);
+        duck.draw(scratch, programId, aPositionLocation, aColorLocation);
         crosshair.draw(scratch, programId, aPositionLocation, aColorLocation);
     }
 
@@ -109,7 +109,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         aPositionLocation = GLES20.glGetAttribLocation(programId, A_POSITION);
         aColorLocation = GLES20.glGetAttribLocation(programId, A_COLOR);
 
-        triangle = new Triangle();
+        duck = new Duck();
         crosshair = new Crosshair();
 
         sensorManager.registerListener(new SensorEventListener() {
@@ -117,7 +117,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
             public void onSensorChanged(SensorEvent event) {
                 float[] oldPos = {x, y};
 
-                deltaX = (-1 * event.values[0] * multiplier);
+                deltaX = (event.values[0] * multiplier);
                 deltaY = (event.values[1] * multiplier);
 
 //                Log.i("position", String.format("x[old: %f, new: %f, rot: %f] y[old: %f, new: %f, rot: %f] mult: %f", oldPos[0], x, event.values[0], oldPos[1], y, event.values[1], multiplier));
