@@ -18,12 +18,12 @@ public class Crosshair {
 
     static float squareCoords[] = {   // in counterclockwise order:
             0.0f,    0.04f,    1f, 0f, 0f, // top
-            -0.025f,    0f,    1f, 0f, 0f, // bottom left
-            0.025f,     0f,    1f, 0f, 0f,// bottom right
+            -0.025f,    0f,    0f, 1f, 0f, // bottom left
+            0.025f,     0f,    0f, 0f, 1f,// bottom right
 
             0.0f,   -0.04f,     0f, 0f, 1f,// top
-            -0.025f,    0f,     0f, 0f, 1f,// bottom left
-            0.025f,     0f,     0f, 0f, 1f,// bottom right
+            -0.025f,    0f,     0f, 1f, 0f,// bottom left
+            0.025f,     0f,     1f, 0f, 0f,// bottom right
     };
 
     public Crosshair() {

@@ -19,9 +19,9 @@ public class Triangle {
     static final int COLORS_PER_VERTEX = 3;
 
     static float triangleCoords[] = {   // in counterclockwise order:
-            -0.75f,  0.3f,    0f, 1f, 0f,// top
+            -0.75f,  0.3f,    1f, 0f, 0f,// top
             -1f,     0.0f,    0f, 1f, 0f,// bottom left
-            -0.5f,   0.0f,    0f, 1f, 0f,  // bottom right
+            -0.5f,   0.0f,    0f, 0f, 1f,  // bottom right
     };
 
     public Triangle() {
