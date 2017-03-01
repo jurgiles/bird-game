@@ -16,8 +16,8 @@ import static es.jurgil.duckhunt.ShaderTools.loadShaderResourceToString;
 import static es.jurgil.duckhunt.ShaderTools.loadVertexShader;
 
 public class MyGLRenderer implements GLSurfaceView.Renderer {
-    private static final String U_COLOR = "u_Color";
-    private int uColorLocation;
+    private static final String A_COLOR = "a_Color";
+    private int aColorLocation;
 
     private static final String A_POSITION = "a_Position";
     private int aPositionLocation;
@@ -94,8 +94,8 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
 
         // Draw shape
-        triangle.draw(scratch, programId, aPositionLocation, uColorLocation);
-        crosshair.draw(scratch, programId, aPositionLocation, uColorLocation);
+        triangle.draw(scratch, programId, aPositionLocation, aColorLocation);
+        crosshair.draw(scratch, programId, aPositionLocation, aColorLocation);
     }
 
     public void onSurfaceCreated(GL10 gl, javax.microedition.khronos.egl.EGLConfig config) {
@@ -106,8 +106,8 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
         programId = ShaderTools.setupGLProgram(fragmentShader, vertexShader);
 
-        uColorLocation = GLES20.glGetUniformLocation(programId, U_COLOR);
         aPositionLocation = GLES20.glGetAttribLocation(programId, A_POSITION);
+        aColorLocation = GLES20.glGetAttribLocation(programId, A_COLOR);
 
         triangle = new Triangle();
         crosshair = new Crosshair();
