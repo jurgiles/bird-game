@@ -91,11 +91,14 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         y = Math.max(-1, Math.min(1, y));
 
         Matrix.translateM(scratch, 0, mMVPMatrix, 0, x, y, 0);
+        crosshair.draw(scratch, programId, aPositionLocation, aColorLocation);
 
 
-        // Draw shape
+        int mult1 = Math.random() > .5f? 1: -1;
+        int mult2 = Math.random() > .5f? 1: -1;
+
+        Matrix.translateM(scratch, 0, mMVPMatrix, 0, (float)Math.random() * mult1, (float) Math.random() * mult2, 0f);
         duck.draw(scratch, programId, aPositionLocation, aColorLocation);
-//        crosshair.draw(scratch, programId, aPositionLocation, aColorLocation);
     }
 
     public void onSurfaceCreated(GL10 gl, javax.microedition.khronos.egl.EGLConfig config) {
