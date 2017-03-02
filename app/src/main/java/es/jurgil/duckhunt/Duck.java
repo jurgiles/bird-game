@@ -3,13 +3,14 @@ package es.jurgil.duckhunt;
 
 import android.opengl.GLES20;
 import android.opengl.Matrix;
+import android.os.SystemClock;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
 public class Duck {
-    public static final double VELOCITY_BUMP_ON_KILL = .003;
+    public static final double VELOCITY_BUMP_ON_KILL = .002;
     private FloatBuffer vertexBuffer;
 
     private float xVelocity = .01f;
@@ -44,6 +45,7 @@ public class Duck {
     private float x;
     private long deathTime;
     private float scale = 2f;
+    private long lastTurn;
 
     public Duck() {
         // initialize vertex byte buffer for shape coordinates
@@ -110,12 +112,29 @@ public class Duck {
     }
 
     private void step() {
-        if(isAlive()) return;
+        long now = System.currentTimeMillis();
 
-        long timeSinceDeath = System.currentTimeMillis() - deathTime;
+        if (isAlive()) {
+            long timeSinceTurn = now - lastTurn;
 
-        if(timeSinceDeath > 1500){
-            restoreToLife();
+            if (timeSinceTurn > 2000) {
+                lastTurn = now;
+
+                if (Math.random() < .5f) {
+                    if (Math.random() < .5f) {
+                        turnAround();
+                    } else {
+                        flipOver();
+                    }
+                }
+            }
+
+        } else {
+            long timeSinceDeath = now - deathTime;
+
+            if (timeSinceDeath > 1500) {
+                restoreToLife();
+            }
         }
     }
 
@@ -156,12 +175,15 @@ public class Duck {
     }
 
     public void turnAround() {
+        lastTurn = SystemClock.currentThreadTimeMillis();
         xVelocity *= -1;
     }
 
     public void flipOver() {
+        lastTurn = SystemClock.currentThreadTimeMillis();
         yVelocity *= -1;
     }
+
 
     public float scale() {
         return scale;
