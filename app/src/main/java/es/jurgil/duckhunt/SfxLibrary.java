@@ -21,7 +21,7 @@ public class SfxLibrary {
     }
 
     public void playHitsound(){
-        sp.play(soundIds[1], 1, 1, 1, 0, 1.0f);
+        sp.play(soundIds[0], 1, 1, 1, 0, 1.0f);
     }
 
 
