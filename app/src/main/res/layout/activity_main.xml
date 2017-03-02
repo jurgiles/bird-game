@@ -18,4 +18,13 @@
         android:layout_height="match_parent"
         app:layout_heightPercent="50%"
         tools:layout="@layout/tools_main" />
+
+    <fragment
+        android:id="@+id/game_overlay_fragment"
+        android:name="es.jurgil.duckhunt.GameOverlayFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        app:layout_heightPercent="10%"
+        tools:layout="@layout/game_overlay_main" />
 </android.support.percent.PercentRelativeLayout>

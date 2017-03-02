@@ -113,21 +113,6 @@ public class ToolsFragment extends Fragment {
         }
     }
 
-    public void setPoints(int points) {
-        final String format = String.format("%d", points);
-        final TextView pointsView = (TextView) layout.findViewById(R.id.points_text);
-
-
-        if(getActivity() != null) {
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    pointsView.setText(format);
-                }
-            });
-        }
-    }
-
     public interface ToolsInterface {
         void reset();
 

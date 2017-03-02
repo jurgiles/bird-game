@@ -35,8 +35,8 @@ public class MainActivity extends AppCompatActivity implements ToolsFragment.Too
 
     @Override
     public void setPoints(int points) {
-        ToolsFragment toolsFragment = (ToolsFragment) getFragmentManager().findFragmentById(R.id.tools_fragment);
+        GameOverlayFragment gameOverlayFragment = (GameOverlayFragment) getFragmentManager().findFragmentById(R.id.game_overlay_fragment);
 
-        toolsFragment.setPoints(points);
+        gameOverlayFragment.setPoints(points);
     }
 }
