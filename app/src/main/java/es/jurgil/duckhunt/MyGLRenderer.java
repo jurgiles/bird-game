@@ -8,6 +8,7 @@ import android.hardware.SensorManager;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
+import android.util.Log;
 
 import javax.microedition.khronos.opengles.GL10;
 
@@ -62,7 +63,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     public void onDrawFrame(GL10 unused) {
         updateFps();
 
-        if(flashing){
+        if (flashing) {
             GLES20.glClearColor(1.0f, 1.0f, 1.0f, .1f);
             flashing = false;
         } else {
@@ -97,13 +98,13 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
         float duckX = duck.x();
 
-        if(screenRatio < duckX + xVelocity) {
+        if (screenRatio < duckX + xVelocity) {
             duckX = screenRatio;
             xVelocity *= -1;
-        } if (-screenRatio > duckX + xVelocity) {
+        } else if (-screenRatio > duckX + xVelocity) {
             duckX = -screenRatio;
             xVelocity *= -1;
-        }else{
+        } else {
             duckX += xVelocity;
         }
 
@@ -173,5 +174,13 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
     public void flashScreen() {
         flashing = true;
+    }
+
+    public void tapOn(float x, float y) {
+        if(crosshair.aimingAt(duck, this.x)){
+            Log.i("gameplay", "duck hit");
+        } else{
+            Log.i("gameplay", String.format("duck missed at (%f, %f)", this.x, this.y));
+        }
     }
 }

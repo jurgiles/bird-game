@@ -65,4 +65,8 @@ public class Crosshair {
         // Disable vertex array
         GLES20.glDisableVertexAttribArray(mPositionHandle);
     }
+
+    public boolean aimingAt(Duck duck, float x) {
+        return Math.abs(duck.x() - x) < .1;
+    }
 }
