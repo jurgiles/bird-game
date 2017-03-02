@@ -25,6 +25,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
-        app:layout_heightPercent="10%"
+        app:layout_heightPercent="20%"
         tools:layout="@layout/game_overlay_main" />
 </android.support.percent.PercentRelativeLayout>
