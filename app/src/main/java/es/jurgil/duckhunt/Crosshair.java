@@ -8,6 +8,10 @@ import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
 public class Crosshair {
+
+    private float x;
+    private float y;
+
     private FloatBuffer vertexBuffer;
 
     private int mMVPMatrixHandle;
@@ -39,6 +43,9 @@ public class Crosshair {
 
         // add the coordinates to the FloatBuffer
         vertexBuffer.put(squareCoords);
+
+        y = 0f;
+        x = 0f;
     }
 
     public void draw(float[] mvpMatrix, int program, int mPositionHandle, int aColorLocation) {
@@ -66,7 +73,28 @@ public class Crosshair {
         GLES20.glDisableVertexAttribArray(mPositionHandle);
     }
 
-    public boolean aimingAt(Duck duck, float x) {
-        return Math.abs(duck.x() - x) < .1;
+    public boolean aimingAt(Duck duck) {
+        return Math.abs(duck.x() - this.x) < .1;
+    }
+
+    public float x() {
+        return x;
+    }
+
+    public float y() {
+        return y;
+    }
+
+    public void y(float newY) {
+        y = newY;
+    }
+
+    public void x(float newX) {
+        x = newX;
+    }
+
+    public void reset() {
+        x = 0;
+        y = 0;
     }
 }

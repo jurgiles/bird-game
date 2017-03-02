@@ -7,7 +7,13 @@ public class Game {
         return points;
     }
 
-    public void addPoints(int i) {
+    private void addPoints(int i) {
         points += i;
+    }
+
+    public void fireShot(Crosshair crosshair, Duck duck) {
+        if(crosshair.aimingAt(duck)){
+            addPoints(100);
+        }
     }
 }

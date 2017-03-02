@@ -8,7 +8,6 @@ import android.hardware.SensorManager;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
-import android.util.Log;
 
 import javax.microedition.khronos.opengles.GL10;
 
@@ -32,9 +31,6 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     private final float[] mViewMatrix = new float[16];
 
     private float[] rotationMatrix = new float[16];
-
-    private float x = 0;
-    private float y = 0;
 
     private float deltaX = 0;
     private float deltaY = 0;
@@ -89,13 +85,15 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         // for the matrix multiplication product to be correct.
         Matrix.multiplyMM(scratch, 0, mMVPMatrix, 0, rotationMatrix, 0);
 
-        x += deltaX;
-        y += deltaY;
 
-        x = Math.max(-screenRatio, Math.min(screenRatio, x));
-        y = Math.max(-1, Math.min(1, y));
+        float newX = crosshair.x() + deltaX;
+        float newY = crosshair.y() + deltaY;
+        newX = Math.max(-screenRatio, Math.min(screenRatio, newX));
+        newY = Math.max(-1, Math.min(1, newY));
+        crosshair.x(newX);
+        crosshair.y(newY);
 
-        Matrix.translateM(scratch, 0, mMVPMatrix, 0, x, y, 0);
+        Matrix.translateM(scratch, 0, mMVPMatrix, 0, newX, newY, 0);
         crosshair.draw(scratch, programId, aPositionLocation, aColorLocation);
 
 
@@ -134,8 +132,6 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         sensorManager.registerListener(new SensorEventListener() {
             @Override
             public void onSensorChanged(SensorEvent event) {
-                float[] oldPos = {x, y};
-
                 deltaX = (event.values[0] * multiplier);
                 deltaY = (event.values[1] * multiplier);
 
@@ -162,8 +158,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     }
 
     public void reset() {
-        x = 0;
-        y = 0;
+        crosshair.reset();
     }
 
     public void setMuliplier(float multiplier) {
@@ -182,12 +177,6 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     }
 
     public void tapOn() {
-        if(crosshair.aimingAt(duck, this.x)){
-//            Log.i("gameplay", "duck hit");
-            game.addPoints(100);
-
-        } else{
-//            Log.i("gameplay", String.format("duck missed at (%f, %f)", this.x, this.y));
-        }
+        game.fireShot(crosshair, duck);
     }
 }
