@@ -14,7 +14,7 @@ public class GLFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        renderer = new MyGLRenderer(this.getActivity(), (IFpsViewer) this.getActivity());
+        renderer = new MyGLRenderer(this.getActivity(), (IFpsViewer) this.getActivity(), (IPointViewer) this.getActivity(), new Game());
 
         myGLSurfaceView = new MyGLSurfaceView(this.getActivity(), renderer);
 
@@ -32,6 +32,11 @@ public class GLFragment extends Fragment {
     public interface IFpsViewer {
         void setFps(float fps);
     }
+
+    public interface IPointViewer {
+        void setPoints(int points);
+    }
+
 
     @Override
     public void onPause() {

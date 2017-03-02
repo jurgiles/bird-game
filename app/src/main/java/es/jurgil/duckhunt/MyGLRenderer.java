@@ -43,6 +43,8 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
     private Sensor gyroSensor;
     private final SensorManager sensorManager;
+    private GLFragment.IPointViewer pointViewer;
+    private Game game;
     private final GLFragment.IFpsViewer fpsViewer;
     private float multiplier;
 
@@ -51,10 +53,11 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     private int programId;
     private float xVelocity = .01f;
 
-    public MyGLRenderer(Context context, GLFragment.IFpsViewer fpsViewer) {
+    public MyGLRenderer(Context context, GLFragment.IFpsViewer fpsViewer, GLFragment.IPointViewer pointViewer, Game game) {
         this.fpsViewer = fpsViewer;
-
         this.context = context;
+        this.pointViewer = pointViewer;
+        this.game = game;
 
         sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         gyroSensor = sensorManager.getDefaultSensor(Sensor.TYPE_GAME_ROTATION_VECTOR);
@@ -110,6 +113,8 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
         duck.shift(scratch, duckX, mMVPMatrix);
         duck.draw(scratch, programId, aPositionLocation, aColorLocation);
+
+        pointViewer.setPoints(game.getPoints());
     }
 
     public void onSurfaceCreated(GL10 gl, javax.microedition.khronos.egl.EGLConfig config) {
@@ -176,11 +181,13 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         flashing = true;
     }
 
-    public void tapOn(float x, float y) {
+    public void tapOn() {
         if(crosshair.aimingAt(duck, this.x)){
-            Log.i("gameplay", "duck hit");
+//            Log.i("gameplay", "duck hit");
+            game.addPoints(100);
+
         } else{
-            Log.i("gameplay", String.format("duck missed at (%f, %f)", this.x, this.y));
+//            Log.i("gameplay", String.format("duck missed at (%f, %f)", this.x, this.y));
         }
     }
 }

@@ -3,7 +3,7 @@ package es.jurgil.duckhunt;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity implements ToolsFragment.ToolsInterface, GLFragment.IFpsViewer {
+public class MainActivity extends AppCompatActivity implements ToolsFragment.ToolsInterface, GLFragment.IFpsViewer, GLFragment.IPointViewer {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,5 +31,12 @@ public class MainActivity extends AppCompatActivity implements ToolsFragment.Too
         if (toolsFragment != null) {
             toolsFragment.setFps(fps);
         }
+    }
+
+    @Override
+    public void setPoints(int points) {
+        ToolsFragment toolsFragment = (ToolsFragment) getFragmentManager().findFragmentById(R.id.tools_fragment);
+
+        toolsFragment.setPoints(points);
     }
 }
