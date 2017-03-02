@@ -47,7 +47,6 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     private boolean flashing = false;
     private float screenRatio;
     private int programId;
-    private float xVelocity = .01f;
 
     public MyGLRenderer(Context context, GLFragment.IFpsViewer fpsViewer, GLFragment.IPointViewer pointViewer, Game game) {
         this.fpsViewer = fpsViewer;
@@ -98,14 +97,14 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
 
         float duckX = duck.x();
-        if (screenRatio < duckX + xVelocity) {
+        if (screenRatio < duckX + duck.velocity()) {
             duckX = screenRatio;
-            xVelocity *= -1;
-        } else if (-screenRatio > duckX + xVelocity) {
+            duck.turnAround();
+        } else if (-screenRatio > duckX + duck.velocity()) {
             duckX = -screenRatio;
-            xVelocity *= -1;
+            duck.turnAround();
         } else {
-            duckX += xVelocity;
+            duckX += duck.velocity();
         }
 
         duck.shift(scratch, duckX, mMVPMatrix);
@@ -171,11 +170,13 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         fpsViewer.setFps(fps);
     }
 
-    public void flashScreen() {
+    private void flashScreen() {
         flashing = true;
     }
 
     public void tapOn() {
+        flashScreen();
+
         game.fireShot(crosshair, duck);
     }
 }

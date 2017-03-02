@@ -15,6 +15,7 @@ public class Game {
         if(crosshair.aimingAt(duck)){
             addPoints(100);
             duck.die();
+            duck.speedUp();
         }
     }
 }

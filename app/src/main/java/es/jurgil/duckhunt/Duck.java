@@ -9,7 +9,10 @@ import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
 public class Duck {
+    public static final double VELOCITY_BUMP_ON_KILL = .005;
     private FloatBuffer vertexBuffer;
+
+    private float xVelocity = .01f;
 
     private int mMVPMatrixHandle;
 
@@ -119,5 +122,21 @@ public class Duck {
 
     public void die() {
         deathTime = System.currentTimeMillis();
+    }
+
+    public void speedUp() {
+        if (xVelocity > 0) {
+            xVelocity += VELOCITY_BUMP_ON_KILL;
+        } else {
+            xVelocity -= VELOCITY_BUMP_ON_KILL;
+        }
+    }
+
+    public float velocity() {
+        return xVelocity;
+    }
+
+    public void turnAround() {
+        xVelocity *= -1;
     }
 }

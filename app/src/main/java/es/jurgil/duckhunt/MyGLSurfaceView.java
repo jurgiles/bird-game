@@ -23,7 +23,6 @@ public class MyGLSurfaceView extends GLSurfaceView {
         switch (e.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 renderer.tapOn();
-                renderer.flashScreen();
                 break;
         }
 
