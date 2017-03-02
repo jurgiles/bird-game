@@ -1,10 +1,10 @@
 package es.jurgil.duckhunt;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,11 +65,7 @@ public class ToolsFragment extends Fragment {
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if(toolsCallBack != null) {
-                    toolsCallBack.setMultiplier(progress / 100f);
-                } else {
-                    Log.w("unexpected", "toolsCallBack is null");
-                }
+                toolsCallBack.setMultiplier(progress / 100f);
             }
 
             @Override
@@ -94,7 +90,19 @@ public class ToolsFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        toolsCallBack = (ToolsInterface) context;
+
+        attachToolsCallBack((ToolsInterface) context);
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        attachToolsCallBack((ToolsInterface) activity);
+    }
+
+    private void attachToolsCallBack(ToolsInterface activity) {
+        toolsCallBack = activity;
     }
 
     public void setFps(final float fps) {
@@ -102,7 +110,7 @@ public class ToolsFragment extends Fragment {
         final TextView fpsView = (TextView) layout.findViewById(R.id.fps_text);
 
         //can be avoided if fragment is paused when activity is paused.
-        if(getActivity() != null) {
+        if (getActivity() != null) {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {

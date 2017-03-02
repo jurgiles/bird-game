@@ -97,17 +97,30 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
 
         float duckX = duck.x();
-        if (screenRatio < duckX + duck.velocity()) {
+
+        if (screenRatio < duckX + duck.xVelocity()) {
             duckX = screenRatio;
             duck.turnAround();
-        } else if (-screenRatio > duckX + duck.velocity()) {
+        } else if (-screenRatio > duckX + duck.xVelocity()) {
             duckX = -screenRatio;
             duck.turnAround();
         } else {
-            duckX += duck.velocity();
+            duckX += duck.xVelocity();
         }
 
-        duck.shift(scratch, duckX, mMVPMatrix);
+        float duckY = duck.y();
+        if (1 < duckY + duck.yVelocity()) {
+            duckY = 1;
+            duck.flipOver();
+        } else if (-1> duckY + duck.yVelocity()) {
+            duckY = -1;
+            duck.flipOver();
+        } else {
+            duckY += duck.yVelocity();
+        }
+
+
+        duck.shift(scratch, duckX, duckY, mMVPMatrix);
         duck.draw(scratch, programId, aPositionLocation, aColorLocation);
 
         pointViewer.setPoints(game.getPoints());

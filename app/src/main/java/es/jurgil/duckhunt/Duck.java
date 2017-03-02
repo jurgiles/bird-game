@@ -13,6 +13,7 @@ public class Duck {
     private FloatBuffer vertexBuffer;
 
     private float xVelocity = .01f;
+    private float yVelocity = .01f;
 
     private int mMVPMatrixHandle;
 
@@ -60,7 +61,7 @@ public class Duck {
         y = 0;
     }
 
-    public float getY() {
+    public float y() {
         return y;
     }
 
@@ -96,8 +97,9 @@ public class Duck {
         GLES20.glDisableVertexAttribArray(mPositionHandle);
     }
 
-    void shift(float[] scratch, float x, float[] mMVPMatrix) {
+    void shift(float[] scratch, float x, float y, float[] mMVPMatrix) {
         this.x = x;
+        this.y = y;
         Matrix.translateM(scratch, 0, mMVPMatrix, 0, this.x, this.y, 0);
     }
 
@@ -117,7 +119,7 @@ public class Duck {
 
     private void restoreToLife() {
         deathTime = 0;
-        x = 0;
+        x = (float)(Math.random()* Math.random());
     }
 
     public void die() {
@@ -132,11 +134,19 @@ public class Duck {
         }
     }
 
-    public float velocity() {
+    public float xVelocity() {
         return xVelocity;
+    }
+
+    public float yVelocity() {
+        return yVelocity;
     }
 
     public void turnAround() {
         xVelocity *= -1;
+    }
+
+    public void flipOver() {
+        yVelocity *= -1;
     }
 }
