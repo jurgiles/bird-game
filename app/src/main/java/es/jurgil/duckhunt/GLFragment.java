@@ -1,6 +1,8 @@
 package es.jurgil.duckhunt;
 
 import android.app.Fragment;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,9 +16,19 @@ public class GLFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        renderer = new MyGLRenderer(this.getActivity(), (IFpsViewer) this.getActivity(), (IPointViewer) this.getActivity(), new Game());
+        SoundPool sp = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
+        this.getActivity().setVolumeControlStream(AudioManager.STREAM_MUSIC);
+
+        int soundIds[] = new int[10];
+        soundIds[0] = sp.load(getActivity(), R.raw.gotduck, 1);
+
+
+
+        renderer = new MyGLRenderer(this.getActivity(), (IFpsViewer) this.getActivity(), (IPointViewer) this.getActivity(), new Game(sp, soundIds));
 
         myGLSurfaceView = new MyGLSurfaceView(this.getActivity(), renderer);
+
+
 
         return myGLSurfaceView;
     }
