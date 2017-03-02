@@ -21,13 +21,23 @@ public class Crosshair {
     static final int COLORS_PER_VERTEX = 3;
 
     static float squareCoords[] = {   // in counterclockwise order:
-            0.0f,    0.04f,    1f, 0f, 0f, // top
-            -0.025f,    0f,    0f, 1f, 0f, // bottom left
-            0.025f,     0f,    0f, 0f, 1f,// bottom right
+           -0.01f,    0.06f,    1f, 0f, 0f, // top
+           -0.01f,   -0.06f,    0f, 1f, 0f, // bottom left
+            0.01f,    0.06f,    0f, 0f, 1f,// bottom right
 
-            0.0f,   -0.04f,     0f, 0f, 1f,// top
-            -0.025f,    0f,     0f, 1f, 0f,// bottom left
-            0.025f,     0f,     1f, 0f, 0f,// bottom right
+            0.01f,     0.06f,     0f, 0f, 1f,// top
+            0.01f,    -0.06f,     0f, 1f, 0f,// bottom left
+           -0.01f,    -0.06f,     1f, 0f, 0f,// bottom right
+
+            0.06f,     0.01f,     0f, 0f, 1f,// top
+            0.06f,    -0.01f,     0f, 1f, 0f,// bottom left
+            -0.06f,   -0.01f,     1f, 0f, 0f,// bottom right
+
+            -0.06f,    0.01f,    1f, 0f, 0f, // top
+            -0.06f,   -0.01f,    0f, 1f, 0f, // bottom left
+            0.06f,     0.01f,    0f, 0f, 1f,// bottom right
+
+
     };
 
     public Crosshair() {
