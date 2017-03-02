@@ -25,4 +25,7 @@ public class SfxLibrary {
     }
 
 
+    public void shutdown() {
+        sp.release();
+    }
 }

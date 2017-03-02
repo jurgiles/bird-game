@@ -11,10 +11,11 @@ public class GLFragment extends Fragment {
 
     private MyGLSurfaceView myGLSurfaceView;
     private MyGLRenderer renderer;
+    private SfxLibrary sfxLibrary;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        SfxLibrary sfxLibrary = new SfxLibrary(getActivity());
+        sfxLibrary = new SfxLibrary(getActivity());
 
         renderer = new MyGLRenderer(this.getActivity(), (IFpsViewer) this.getActivity(), (IPointViewer) this.getActivity(), new Game(sfxLibrary));
 
@@ -39,6 +40,11 @@ public class GLFragment extends Fragment {
         void setPoints(int points);
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        sfxLibrary.shutdown();
+    }
 
     @Override
     public void onPause() {
