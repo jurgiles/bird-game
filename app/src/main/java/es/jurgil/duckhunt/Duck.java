@@ -9,11 +9,11 @@ import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
 public class Duck {
-    public static final double VELOCITY_BUMP_ON_KILL = .005;
+    public static final double VELOCITY_BUMP_ON_KILL = .003;
     private FloatBuffer vertexBuffer;
 
-    private float xVelocity = .005f;
-    private float yVelocity = .005f;
+    private float xVelocity = .01f;
+    private float yVelocity = .01f;
 
     private int mMVPMatrixHandle;
 
@@ -43,6 +43,7 @@ public class Duck {
     private float y;
     private float x;
     private long deathTime;
+    private float scale = 2f;
 
     public Duck() {
         // initialize vertex byte buffer for shape coordinates
@@ -103,6 +104,11 @@ public class Duck {
         Matrix.translateM(scratch, 0, mMVPMatrix, 0, this.x, this.y, 0);
     }
 
+    public void scale(float[] buffer, float scale) {
+        this.scale = scale;
+        Matrix.scaleM(buffer, 0, scale, scale, 0);
+    }
+
     private void step() {
         if(isAlive()) return;
 
@@ -140,6 +146,7 @@ public class Duck {
         }
     }
 
+
     public float xVelocity() {
         return xVelocity;
     }
@@ -154,5 +161,13 @@ public class Duck {
 
     public void flipOver() {
         yVelocity *= -1;
+    }
+
+    public float scale() {
+        return scale;
+    }
+
+    public void shrink() {
+        scale = scale > 1f ? scale - 0.1f : 1;
     }
 }

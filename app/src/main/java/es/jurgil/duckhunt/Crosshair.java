@@ -84,7 +84,8 @@ public class Crosshair {
     }
 
     public boolean aimingAt(Duck duck) {
-        return Math.abs(duck.x() - this.x) < .1 && Math.abs(duck.y() - this.y) < .1;
+        double threshold = .1 * duck.scale();
+        return Math.abs(duck.x() - this.x) < threshold && Math.abs(duck.y() - this.y) < threshold;
     }
 
     public float x() {

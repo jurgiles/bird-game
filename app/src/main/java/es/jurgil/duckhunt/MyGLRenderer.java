@@ -93,6 +93,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         crosshair.y(newY);
 
         Matrix.translateM(scratch, 0, mMVPMatrix, 0, newX, newY, 0);
+        Matrix.scaleM(scratch, 0, 2, 2, 0);
         crosshair.draw(scratch, programId, aPositionLocation, aColorLocation);
 
 
@@ -118,8 +119,10 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
             duckY += duck.yVelocity();
         }
 
+        float duckScale = duck.scale();
 
         duck.shift(scratch, duckX, duckY, mMVPMatrix);
+        duck.scale(scratch, duckScale);
         duck.draw(scratch, programId, aPositionLocation, aColorLocation);
 
         pointViewer.setPoints(game.getPoints());

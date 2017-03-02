@@ -22,7 +22,13 @@ public class Game {
         if (crosshair.aimingAt(duck)) {
             addPoints(100);
             duck.die();
-            duck.speedUp();
+
+            if(points % 500 == 0) {
+                duck.speedUp();
+            } else {
+                duck.shrink();
+            }
+
             sfxLibrary.playHitsound();
         }
     }
