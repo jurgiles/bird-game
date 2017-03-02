@@ -48,6 +48,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     private boolean flashing = false;
     private float screenRatio;
     private int programId;
+    private float xVelocity = .01f;
 
     public MyGLRenderer(Context context, GLFragment.IFpsViewer fpsViewer) {
         this.fpsViewer = fpsViewer;
@@ -94,10 +95,19 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         crosshair.draw(scratch, programId, aPositionLocation, aColorLocation);
 
 
-        int mult1 = Math.random() > .5f? 1: -1;
-        int mult2 = Math.random() > .5f? 1: -1;
+        float duckX = duck.x();
 
-        Matrix.translateM(scratch, 0, mMVPMatrix, 0, (float)Math.random() * mult1, (float) Math.random() * mult2, 0f);
+        if(screenRatio < duckX + xVelocity) {
+            duckX = screenRatio;
+            xVelocity *= -1;
+        } if (-screenRatio > duckX + xVelocity) {
+            duckX = -screenRatio;
+            xVelocity *= -1;
+        }else{
+            duckX += xVelocity;
+        }
+
+        duck.shift(scratch, duckX, mMVPMatrix);
         duck.draw(scratch, programId, aPositionLocation, aColorLocation);
     }
 

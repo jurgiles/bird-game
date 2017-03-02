@@ -2,6 +2,7 @@ package es.jurgil.duckhunt;
 
 
 import android.opengl.GLES20;
+import android.opengl.Matrix;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -35,6 +36,8 @@ public class Duck {
             -0.15f,  -0.1f,   1f, 0f, 0f,
              0.15f,  -0.1f,   1f, 0f, 0f,
     };
+    private float y;
+    private float x;
 
     public Duck() {
         // initialize vertex byte buffer for shape coordinates
@@ -48,6 +51,17 @@ public class Duck {
         vertexBuffer = bb.asFloatBuffer();
         // add the coordinates to the FloatBuffer
         vertexBuffer.put(coords);
+
+        x = 0;
+        y = 0;
+    }
+
+    public float getY() {
+        return y;
+    }
+
+    public float x() {
+        return x;
     }
 
     public void draw(float[] mvpMatrix, int program, int mPositionHandle, int aColorLocation) {
@@ -72,5 +86,10 @@ public class Duck {
 
         // Disable vertex array
         GLES20.glDisableVertexAttribArray(mPositionHandle);
+    }
+
+    void shift(float[] scratch, float x, float[] mMVPMatrix) {
+        this.x = x;
+        Matrix.translateM(scratch, 0, mMVPMatrix, 0, this.x, this.y, 0);
     }
 }
