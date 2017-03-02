@@ -12,8 +12,8 @@ public class Duck {
     public static final double VELOCITY_BUMP_ON_KILL = .005;
     private FloatBuffer vertexBuffer;
 
-    private float xVelocity = .01f;
-    private float yVelocity = .01f;
+    private float xVelocity = .005f;
+    private float yVelocity = .005f;
 
     private int mMVPMatrixHandle;
 
@@ -131,6 +131,12 @@ public class Duck {
             xVelocity += VELOCITY_BUMP_ON_KILL;
         } else {
             xVelocity -= VELOCITY_BUMP_ON_KILL;
+        }
+
+        if (yVelocity > 0) {
+            yVelocity += VELOCITY_BUMP_ON_KILL;
+        } else {
+            yVelocity -= VELOCITY_BUMP_ON_KILL;
         }
     }
 

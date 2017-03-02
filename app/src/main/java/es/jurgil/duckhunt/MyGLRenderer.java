@@ -97,7 +97,6 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
 
         float duckX = duck.x();
-
         if (screenRatio < duckX + duck.xVelocity()) {
             duckX = screenRatio;
             duck.turnAround();

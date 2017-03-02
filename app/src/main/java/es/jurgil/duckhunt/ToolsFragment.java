@@ -24,6 +24,7 @@ public class ToolsFragment extends Fragment {
     private View layout;
     private GraphView graphX;
     private LineGraphSeries<DataPoint> series;
+    private TextView fpsView;
 
     @Nullable
     @Override
@@ -37,6 +38,8 @@ public class ToolsFragment extends Fragment {
                 toolsCallBack.reset();
             }
         });
+
+
 
         graphX = (GraphView) layout.findViewById(R.id.graph_x);
 
@@ -61,7 +64,7 @@ public class ToolsFragment extends Fragment {
         graphX.getViewport().setMinY(0);
         graphX.getViewport().setMaxY(100);
 
-        SeekBar seekBar = (SeekBar) layout.findViewById(R.id.seek_bar);
+        final SeekBar seekBar = (SeekBar) layout.findViewById(R.id.seek_bar);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -78,6 +81,22 @@ public class ToolsFragment extends Fragment {
         });
 
         seekBar.setProgress(40);
+
+        final View optionalViews = layout.findViewById(R.id.optional_views);
+
+        Button toggleTools = (Button) layout.findViewById(R.id.toggle_tools_button);
+        toggleTools.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(optionalViews.getVisibility() == View.VISIBLE) {
+                    optionalViews.setVisibility(View.GONE);
+                } else {
+                    optionalViews.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+
 
         return layout;
     }
