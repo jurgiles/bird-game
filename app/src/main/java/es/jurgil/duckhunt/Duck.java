@@ -38,6 +38,7 @@ public class Duck {
     };
     private float y;
     private float x;
+    private long deathTime;
 
     public Duck() {
         // initialize vertex byte buffer for shape coordinates
@@ -65,6 +66,10 @@ public class Duck {
     }
 
     public void draw(float[] mvpMatrix, int program, int mPositionHandle, int aColorLocation) {
+        step();
+
+        if(!isAlive()){return;}
+
         // Enable a handle to the triangle vertices
         GLES20.glEnableVertexAttribArray(mPositionHandle);
         GLES20.glEnableVertexAttribArray(aColorLocation);
@@ -91,5 +96,28 @@ public class Duck {
     void shift(float[] scratch, float x, float[] mMVPMatrix) {
         this.x = x;
         Matrix.translateM(scratch, 0, mMVPMatrix, 0, this.x, this.y, 0);
+    }
+
+    private void step() {
+        if(isAlive()) return;
+
+        long timeSinceDeath = System.currentTimeMillis() - deathTime;
+
+        if(timeSinceDeath > 1500){
+            restoreToLife();
+        }
+    }
+
+    private boolean isAlive() {
+        return deathTime == 0;
+    }
+
+    private void restoreToLife() {
+        deathTime = 0;
+        x = 0;
+    }
+
+    public void die() {
+        deathTime = System.currentTimeMillis();
     }
 }

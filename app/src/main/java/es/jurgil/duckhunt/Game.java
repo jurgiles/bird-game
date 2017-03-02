@@ -14,6 +14,7 @@ public class Game {
     public void fireShot(Crosshair crosshair, Duck duck) {
         if(crosshair.aimingAt(duck)){
             addPoints(100);
+            duck.die();
         }
     }
 }
